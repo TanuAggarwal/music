@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="music.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <title>Music Player</title>
+</head>
+<body>
+    <div class="conatiner">
+        <div class="music_container">
+            <h1>Songs</h1>
+            <h2 id="title">Jannat Ve</h2>
+            <h3 id="artist">Darshan</h3>
+            <div class="image anime">
+                 <img src="image3.jpg" alt="music player" />
+            </div>
+             <audio src="RINGTONE-Jannat-Zubair-Siddharth-Nigam-Preetinder-Rajat-Nagpal-Vicky-Sandhu-Anshul-G.mp3"></audio>
+                <div class="music_controls">
+                    <i class="fas fa-backward "id="prev" title="previous"></i>
+                    <i class="fas fa-play main_button" id="play" title="play"></i>
+                    <i class="fas fa-forward" id="next" title="next"></i>
+                </div>
+        </div>
+    </div>
+    <script>
+        let isPlaying=false;
+        const play =document.getElementById("play");
+        const music=document.querySelector("audio");
+        const img=document.querySelector("img");
+        const artist=document.getElementById("artist");
+        const title=document.getElementById("title");
+        const prev=document.getElementById("prev");
+        const next=document.getElementById("next");
+        const songs=[{
+            name:"RINGTONE-Jannat-Zubair-Siddharth-Nigam-Preetinder-Rajat-Nagpal-Vicky-Sandhu-Anshul-G.mp3",
+            title:"Ringtone",
+            artist:"Preetinder",
+        },
+        {
+            name:"Raataan Lambiyan(PaglaSongs).mp3",
+            title:"Raatan Lambhiya",
+            artist:"Jubin Nautiyal",
+        },
+        {
+            name:"Jannat Ve(PaglaSongs).mp3",
+            title:"Jannat Ve",
+            artist:"Darshan",
+        },
+        ];
+        const playMusic=()=>{
+            music.play();
+            isPlaying=true;
+            play.classList.replace("fa-play","fa-pause");
+            img.classList.add("anime");
+        };
+        const pauseMusic = ()=>{
+            music.pause();
+            isPlaying=false;
+            play.classList.replace("fa-pause","fa-play");
+            img.classList.remove("anime");
+        };
+        play.addEventListener("click",()=>{
+            isPlaying?pauseMusic():playMusic();
+        });
+        const loadSong=(songs)=>{
+            title.textContent=songs.title;
+            artist.textContent=songs.artist;
+            music.src=songs.name;
+            // img.src=songs.name;
+        };
+        songIndex=0;
+        const nextSong=()=>{
+            songIndex=(songIndex+1)% songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+        };
+        const prevSong=()=>{
+            songIndex=(songIndex-1 +songs.length)% songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+        };
+        next.addEventListener("click",nextSong);
+        prev.addEventListener("click",prevSong);
+    </script>
+</body>
+</html>
